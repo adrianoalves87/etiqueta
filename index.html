@@ -70,6 +70,7 @@
       background: #fff;
       box-sizing: border-box;
       margin: 20px auto;
+      text-align: center;
     }
 
     .logo {
@@ -79,9 +80,9 @@
     }
 
     .linha {
-      width: 100%;
-      text-align: left;
       margin: 3px 0;
+      font-weight: bold;
+      line-height: 1.2;
     }
 
     .divider {
@@ -146,6 +147,10 @@
       return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     }
 
+    function verticalizarTexto(texto) {
+      return texto.split('').join('<br>');
+    }
+
     function gerarEtiqueta() {
       const nome = document.getElementById('nome').value.trim();
       const data = document.getElementById('dataNascimento').value;
@@ -170,9 +175,14 @@
           <div class="etiqueta">
             <img src="./clinicall.png" alt="Logomarca" class="logo">
             <div class="divider"></div>
-            <div class="linha"><strong>Nome:</strong> ${nome}</div>
-            <div class="linha"><strong>Nasc.:</strong> ${dataFormatada}</div>
-            <div class="linha"><strong>CPF:</strong> ${cpfFormatado}</div>
+            <div class="linha">${verticalizarTexto("Nome:")}</div>
+            <div class="linha">${verticalizarTexto(nome)}</div>
+            <div class="divider"></div>
+            <div class="linha">${verticalizarTexto("Nasc:")}</div>
+            <div class="linha">${verticalizarTexto(dataFormatada)}</div>
+            <div class="divider"></div>
+            <div class="linha">${verticalizarTexto("CPF:")}</div>
+            <div class="linha">${verticalizarTexto(cpfFormatado)}</div>
           </div>
           <div style="margin-top: 10px; text-align: center;">
             <button id="imprimirBtn" onclick="window.print()">Imprimir</button>
