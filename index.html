@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Etiqueta de Pulseira</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    .formulario {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Etiqueta (pulseira horizontal girada em folha vertical) */
+    .etiqueta {
+      width: 2cm;
+      height: 8cm;
+      border: 2px solid #555;
+      border-radius: 6px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      font-size: 11px;
+      background: #fff;
+      transform: rotate(90deg);
+      transform-origin: left top;
+      position: relative;
+      left: 6.2cm;
+      top: 0.5cm;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      max-width: 100%;
+      max-height: 25px;
+      margin-bottom: 4px;
+    }
+
+    .linha {
+      width: 100%;
+      text-align: left;
+      margin: 3px 0;
+    }
+
+    .divider {
+      width: 100%;
+      border-top: 1px dashed #aaa;
+      margin: 4px 0;
+    }
+
+    /* Impressão */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #etiquetaGerada, #etiquetaGerada * {
+        visibility: visible;
+      }
+      #etiquetaGerada {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Gerador de Etiqueta de Pulseira</h2>
+
+  <div class="formulario">
+    <label>Nome:
+      <input type="text" id="nome" required>
+    </label>
+
+    <label>Data de Nascimento:
+      <input type="date" id="dataNascimento" required>
+    </label>
+
+    <label>CPF:
+      <input type="text" id="cpf" required placeholder="000.000.000-00">
+    </label>
+
+    <button onclick="gerarEtiqueta()">Gerar Etiqueta</button>
+  </div>
+
+  <div id="etiquetaGerada" style="margin-top: 30px;"></div>
+
+  <script>
+    function gerarEtiqueta() {
+      const nome = document.getElementById('nome').value;
+      const data = document.getElementById('dataNascimento').value;
+      const cpf = document.getElementById('cpf').value;
+
+      const etiquetaHTML = `
+        <div>
+          <div class="etiqueta">
+            <img src="./clinicall.png" alt="Logomarca" class="logo">
+            <div class="divider"></div>
+            <div class="linha"><strong>Nome:</strong> ${nome}</div>
+            <div class="linha"><strong>Nasc.:</strong> ${data}</div>
+            <div class="linha"><strong>CPF:</strong> ${cpf}</div>
+          </div>
+          <div style="margin-top: 10px;">
+            <button onclick="window.print()">Imprimir</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('etiquetaGerada').innerHTML = etiquetaHTML;
+    }
+  </script>
+
+</body>
+</html>
